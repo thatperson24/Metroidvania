@@ -16,8 +16,7 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField] private LayerMask groundLayer;
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-
+        
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
@@ -33,7 +32,17 @@ public class CharacterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            rb.velocity = new Vector2(1f * speed, rb.velocity.y);
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            rb.velocity = new Vector2(-1f * speed, rb.velocity.y);
+        } else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
     }
 
     private bool IsGrounded()
