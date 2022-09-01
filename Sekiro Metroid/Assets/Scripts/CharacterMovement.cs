@@ -11,9 +11,9 @@ public class CharacterMovement : MonoBehaviour
 	private bool isFacingRight = true;
 
 	[SerializeField] private Rigidbody2D rb;
-	[SerializeField] private Transform groundCheck;
+    [SerializeField] private GameObject character;
+    [SerializeField] private Transform groundCheck;
 	[SerializeField] private LayerMask groundLayer;
-
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -28,7 +28,7 @@ public class CharacterMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
 
-        //Flip();
+        Flip();
     }
 
     private void FixedUpdate()
@@ -46,9 +46,9 @@ public class CharacterMovement : MonoBehaviour
         if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
             isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
+            Vector3 localScale = character.transform.localScale;
             localScale.x *= -1f;
-            transform.localScale = localScale;
+            character.transform.localScale = localScale;
         }
     }
 }
